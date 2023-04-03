@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import styles from "./CardInfo.module.css"
 import moment from "moment";
 
-function CardInfo({ job }){
+function CardInfo({ job, data }){
 
     
     useEffect(() =>{
-        const yelp_api = 'nr9RggSEc5oAJy2gWCKPo1Ca_eY2KPGBc7dK7G4LkAuUDmUI9ugK3l_EjW7724rrT8lHsw_t1wtxiPSEPHT2qpkS9jfb6U-cefLhKgJY1-Xqhd7ZLygmn6XaXSErZHYx'
+        const yelp_api = data.REACT_APP_APPID 
         fetch(`https://api.yelp.com/v3/businesses/search?term=${job.company.display_name}&location=${job.location.display_name}`, {
             headers: {
                 'Authorization': `Bearer ${yelp_api}`

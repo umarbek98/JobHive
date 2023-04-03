@@ -52,7 +52,7 @@ function App() {
     <div>
       <NavBar what={what} setWhat={setWhat} where={where} setWhere={setWhere}/>
       <JobListings jobs={jobs}  setCurrJob={setCurrJob}/>
-      {currJob ? <CardInfo  job={currJob}/> : null}
+      {currJob ? <CardInfo data={data}  job={currJob}/> : null}
     </div>
   );
 }
