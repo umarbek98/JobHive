@@ -3,11 +3,15 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import styles from './NavBar.module.css'
 import { Link } from 'react-router-dom';
 
-function NavBar({ what, where, setWhat, setWhere}) {
+function NavBar({ what, where, setWhat, setWhere, setCurrJob}) {
   function handleSearch(event) {
     event.preventDefault();
     setWhat(event.target.what.value)
     setWhere(event.target.where.value)
+  }
+
+  function handleClick(e){
+    setCurrJob(null)
   }
 
   return (
@@ -16,8 +20,8 @@ function NavBar({ what, where, setWhat, setWhere}) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to="/" style={{}} className="ms-1 text-primary" href="#home">Home</Link>
-          <Link to="/tips" className="ms-1 text-primary" href="#link">Tips</Link>
+          <Link to="/" className="ms-2 text-primary" href="#home">Home</Link>
+          <Link onClick={handleClick} to="/tips" className="ms-4 text-primary" href="#link">Tips</Link>
         </Nav>
         <Form inline onSubmit={handleSearch}>
             <div className='d-flex'>

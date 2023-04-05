@@ -8,7 +8,7 @@ function JobCard({ job, setCurrJob}){
         // console.log(job)
     }
     return(
-        <div className="col" id={styles.card} onClick={handleclick}>
+        <div className="col-sm-2" id={styles.card} onClick={handleclick}>
             <div >
                 <h1 className={styles.title}>{job.title}</h1>
                 <h3 className={styles.title}>{job.company.display_name}</h3>

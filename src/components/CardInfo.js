@@ -39,8 +39,10 @@ function CardInfo({ job, data }){
                 <h1 className={styles.title}>Short Description</h1>
                 <p className={styles.description}>{job.description}</p>
                 <div style={{textAlign: 'center'}}>
-                <a href={job.redirect_url} class="btn btn-primary btn-lg active" role="button" aria-pressed="true">More Details</a>
+                    <a href={job.redirect_url} class="btn btn-primary btn-lg active" role="button" aria-pressed="true">More Details</a>
                 </div>
+                <br></br>
+                <p className={styles.info}>For some usefull tips please head over to Tips section of our page, to help get a better idea of what you should do fore applying</p>
             </div>
     )
 }

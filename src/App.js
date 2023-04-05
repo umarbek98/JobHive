@@ -12,14 +12,14 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [what, setWhat] = useState('');
-  const [where, setWhere] = useState('');
+  const [what, setWhat] = useState('Developer');
+  const [where, setWhere] = useState('Denver');
   const [currJob, setCurrJob] = useState(jobs[Math.floor(Math.random() * jobs.length)]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const appId = data.REACT_APP_APPID 
     const appKey = data.REACT_APP_APPKEY;
-    let page = 1
     const endpoint = `https://api.adzuna.com/v1/api/jobs/us/search/${page}?app_id=${appId}&app_key=${appKey}&what=${what}&where=${where}`;
 
     setLoading(true);
@@ -39,8 +39,15 @@ function App() {
         setError(error);
         setLoading(false);
       });
-  }, [what, where]);
+  }, [what, where, page]);
 
+  function handlePageChange(direction){
+    if (direction === 'next') {
+      setPage(prevV => prevV + 1)
+    } else if (direction === 'prev') {
+      setPage(prevV => prevV - 1)
+    }
+  }
 
 
   if (loading) {
@@ -54,9 +61,17 @@ function App() {
   return (
     <BrowserRouter>
      <div>
-       <NavBar what={what} setWhat={setWhat} where={where} setWhere={setWhere}/>
+       <NavBar what={what} setCurrJob={setCurrJob} setWhat={setWhat} where={where} setWhere={setWhere}/>
        <Routes>
-         <Route exact path="/" element={<JobListings jobs={jobs} setCurrJob={setCurrJob}/>}/>
+
+         <Route exact path="/" element={<JobListings
+          jobs={jobs}
+          currJob={currJob} 
+          setCurrJob={setCurrJob} 
+          onPageChange={handlePageChange}
+          page={page}
+          />}/>
+
          <Route path="/tips" element={<Tips />}/>
        </Routes>
        {currJob ? <CardInfo data={data} job={currJob}/> : null}
