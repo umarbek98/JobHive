@@ -4,6 +4,8 @@ import JobListings from './components/JobListings';
 import NavBar from './components/NavBar';
 import CardInfo from './components/CardInfo';
 import data from "./env.js"
+import Tips from './components/Tips';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
   }, [what, where]);
 
 
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -49,11 +52,16 @@ function App() {
   }
 
   return (
-    <div>
-      <NavBar what={what} setWhat={setWhat} where={where} setWhere={setWhere}/>
-      <JobListings jobs={jobs}  setCurrJob={setCurrJob}/>
-      {currJob ? <CardInfo data={data}  job={currJob}/> : null}
-    </div>
+    <BrowserRouter>
+     <div>
+       <NavBar what={what} setWhat={setWhat} where={where} setWhere={setWhere}/>
+       <Routes>
+         <Route exact path="/" element={<JobListings jobs={jobs} setCurrJob={setCurrJob}/>}/>
+         <Route path="/tips" element={<Tips />}/>
+       </Routes>
+       {currJob ? <CardInfo data={data} job={currJob}/> : null}
+     </div>
+   </BrowserRouter>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import styles from './NavBar.module.css'
+import { Link } from 'react-router-dom';
 
 function NavBar({ what, where, setWhat, setWhere}) {
   function handleSearch(event) {
@@ -15,8 +16,8 @@ function NavBar({ what, where, setWhat, setWhere}) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link style={{}} className="ms-1 text-primary" href="#home">Home</Nav.Link>
-          <Nav.Link className="ms-1 text-primary" href="#link">Link</Nav.Link>
+          <Link to="/" style={{}} className="ms-1 text-primary" href="#home">Home</Link>
+          <Link to="/tips" className="ms-1 text-primary" href="#link">Tips</Link>
         </Nav>
         <Form inline onSubmit={handleSearch}>
             <div className='d-flex'>
