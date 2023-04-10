@@ -1,11 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import styles from './NavBar.module.css'
 import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
+import { auth } from "../firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function NavBar({ what, where, setWhat, setWhere, setCurrJob }) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [authUser, setAuthUser] = useState(null)
+
+  useEffect(() => {
+    const linsten = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setAuthUser(user)
+        } else {
+            setAuthUser(null)
+        }
+    } )
+    
+    return () => {
+        linsten();
+
+    }
+},[])
+
+  function userSignOut(){
+    signOut(auth)
+  }
 
   function handleSearch(event) {
     event.preventDefault();
@@ -50,65 +74,11 @@ function NavBar({ what, where, setWhat, setWhere, setCurrJob }) {
                 <Button type="submit">Search</Button>
             </div>
         </Form>
-        <Button className={styles.loginButton} variant="primary" onClick={handleLogin}>Login</Button>
+        {authUser ? <Button className={styles.loginButton} variant="primary" onClick={userSignOut}>Logout</Button>
+         : <Button className={styles.loginButton} variant="primary" onClick={handleLogin}>Login</Button>}
       </Navbar.Collapse>
-      {/* login modal */}
-      <Modal show={showLogin} onHide={handleCloseLogin}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseLogin}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleRegister}>
-            Don't have an account?
-          </Button>
-          <Button variant="primary" onClick={handleCloseLogin}>
-            Login
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {/* register modal */}
-      <Modal show={showRegister} onHide={handleCloseRegister}>
-        <Modal.Header closeButton>
-          <Modal.Title>Register</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseRegister}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleCloseRegister}>
-            Register
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <LoginModal show={showLogin} handleCloseLogin={handleCloseLogin} handleRegister={handleRegister}/>
+      <RegisterModal show={showRegister} handleCloseRegister={handleCloseRegister}/>
     </Navbar>
   );
 }
