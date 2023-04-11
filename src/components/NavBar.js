@@ -7,25 +7,10 @@ import RegisterModal from './RegisterModal';
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
-function NavBar({ what, where, setWhat, setWhere, setCurrJob }) {
+function NavBar({ what, where, setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [authUser, setAuthUser] = useState(null)
 
-  useEffect(() => {
-    const linsten = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setAuthUser(user)
-        } else {
-            setAuthUser(null)
-        }
-    } )
-    
-    return () => {
-        linsten();
-
-    }
-},[])
 
   function userSignOut(){
     signOut(auth)
@@ -66,6 +51,7 @@ function NavBar({ what, where, setWhat, setWhere, setCurrJob }) {
         <Nav className="mr-auto">
           <Link to="/" className="ms-2 text-primary" href="#home">Home</Link>
           <Link onClick={handleClick} to="/tips" className="ms-4 text-primary" href="#link">Tips</Link>
+          <Link onClick={handleClick} className="ms-4 text-primary" to="/saved-jobs">Saved Jobs</Link>
         </Nav>
         <Form inline onSubmit={handleSearch}>
             <div className='d-flex'>

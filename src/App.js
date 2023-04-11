@@ -5,7 +5,11 @@ import NavBar from './components/NavBar';
 import CardInfo from './components/CardInfo';
 import data from "./env.js"
 import Tips from './components/Tips';
+import SavedJobs from './components/SavedJobs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { onAuthStateChanged} from "firebase/auth";
+import { auth } from "./firebase";
+
 
 
 function App() {
@@ -16,6 +20,8 @@ function App() {
   const [where, setWhere] = useState('Denver');
   const [currJob, setCurrJob] = useState(jobs[Math.floor(Math.random() * jobs.length)]);
   const [page, setPage] = useState(1);
+  const [authUser, setAuthUser] = useState(null)
+
 
   useEffect(() => {
     const appId = data.REACT_APP_APPID 
@@ -41,6 +47,22 @@ function App() {
       });
   }, [what, where, page]);
 
+
+  useEffect(() => {
+    const linsten = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setAuthUser(user)
+        } else {
+            setAuthUser(null)
+        }
+    } )
+    
+    return () => {
+        linsten();
+
+    }
+},[])
+
   function handlePageChange(direction){
     if (direction === 'next') {
       setPage(prevV => prevV + 1)
@@ -61,7 +83,15 @@ function App() {
   return (
     <BrowserRouter>
      <div>
-       <NavBar what={what} setCurrJob={setCurrJob} setWhat={setWhat} where={where} setWhere={setWhere}/>
+       <NavBar 
+       what={what} 
+       setCurrJob={setCurrJob} 
+       setWhat={setWhat} 
+       where={where} 
+       setWhere={setWhere}
+       authUser={authUser}
+       setAuthUser={setAuthUser}
+       />
        <Routes>
 
          <Route exact path="/" element={<JobListings
@@ -73,6 +103,7 @@ function App() {
           />}/>
 
          <Route path="/tips" element={<Tips />}/>
+         <Route path="/saved-jobs" element={<SavedJobs currentUser={authUser}/>}/>
        </Routes>
        {currJob ? <CardInfo data={data} job={currJob}/> : null}
      </div>
