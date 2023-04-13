@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import { auth } from "../firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 function NavBar({ what, where, setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
   const [showLogin, setShowLogin] = useState(false);
@@ -51,7 +51,7 @@ function NavBar({ what, where, setWhat, setWhere, setCurrJob, setAuthUser, authU
         <Nav className="mr-auto">
           <Link to="/" className="ms-2 text-primary" href="#home">Home</Link>
           <Link onClick={handleClick} to="/tips" className="ms-4 text-primary" href="#link">Tips</Link>
-          <Link onClick={handleClick} className="ms-4 text-primary" to="/saved-jobs">Saved Jobs</Link>
+          {authUser ? <Link onClick={handleClick} className="ms-4 text-primary" to="/saved-jobs">Saved Jobs</Link> : null}
         </Nav>
         <Form inline onSubmit={handleSearch}>
             <div className='d-flex'>

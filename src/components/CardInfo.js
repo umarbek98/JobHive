@@ -34,6 +34,7 @@ function CardInfo({ job, data }) {
 
   return (
     <div className={styles.cardInfo}>
+      <SaveButton onClick={handleSave} job={job} saved={saved} />
       <h1 className={styles.title}>{job.title}</h1>
       <h3 className={styles.title}>{job.company.display_name}</h3>
       <p className={styles.info}>
@@ -56,7 +57,6 @@ function CardInfo({ job, data }) {
           More Details
         </a>
         <br />
-        <SaveButton onClick={handleSave} job={job} saved={saved} />
       </div>
       <br></br>
       <p className={styles.info}>

@@ -15,7 +15,12 @@ function SaveButton({ job }) {
         userId: auth.currentUser.uid,
         title: job.title,
         url: job.redirect_url,
-        description: job.description
+        description: job.description,
+        location: job.location.display_name,
+        company: job.company.display_name,
+        created: job.created,
+        sal_min: job.salary_min,
+        sal_max: job.salary_max
 
       });
       setIsSaved(true);
@@ -26,7 +31,7 @@ function SaveButton({ job }) {
   };
 
   return (
-    <button onClick={handleSaveJob} disabled={isSaved}>
+    <button className="btn btn-primary btn-lg active" style={{float: "right", marginRight: '10px', marginTop: '10px'}} onClick={handleSaveJob} disabled={isSaved}>
       {isSaved ? "Saved!" : "Save Job"}
     </button>
   );

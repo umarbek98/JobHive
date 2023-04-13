@@ -1,6 +1,6 @@
 .cardInfo {
     position: fixed;
-    top: 65px;
+    top: 25vh;
     height: auto;
     right: 50px;
     border: 1px solid rgba(255, 255, 255, 0.25);
