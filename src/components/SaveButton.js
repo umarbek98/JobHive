@@ -31,7 +31,7 @@ function SaveButton({ job }) {
   };
 
   return (
-    <button className="btn btn-primary btn-lg active" style={{float: "right", marginRight: '10px', marginTop: '10px'}} onClick={handleSaveJob} disabled={isSaved}>
+    <button className="btn btn-success btn-lg active" style={{marginLeft: '10px'}} onClick={handleSaveJob} disabled={isSaved}>
       {isSaved ? "Saved!" : "Save Job"}
     </button>
   );

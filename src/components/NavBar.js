@@ -7,7 +7,7 @@ import RegisterModal from './RegisterModal';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
-function NavBar({ what, where, setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
+function NavBar({setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -63,7 +63,7 @@ function NavBar({ what, where, setWhat, setWhere, setCurrJob, setAuthUser, authU
         {authUser ? <Button className={styles.loginButton} variant="primary" onClick={userSignOut}>Logout</Button>
          : <Button className={styles.loginButton} variant="primary" onClick={handleLogin}>Login</Button>}
       </Navbar.Collapse>
-      <LoginModal show={showLogin} handleCloseLogin={handleCloseLogin} handleRegister={handleRegister}/>
+      <LoginModal show={showLogin} handleCloseLogin={handleCloseLogin} handleRegister={handleRegister} authUser={authUser}/>
       <RegisterModal show={showRegister} handleCloseRegister={handleCloseRegister}/>
     </Navbar>
   );

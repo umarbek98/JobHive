@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./JobCard.module.css"
 import moment from "moment";
 
-function JobCard({ job, setCurrJob}){
+function JobCard({ job, setCurrJob, setJobCardModal}){
     function handleclick(e){
         setCurrJob(job)
-        // console.log(job)
+        setJobCardModal(true)
     }
     return(
         <div className="col-sm-2" id={styles.card} onClick={handleclick}>

@@ -21,7 +21,7 @@ function App() {
   const [currJob, setCurrJob] = useState(jobs[Math.floor(Math.random() * jobs.length)]);
   const [page, setPage] = useState(1);
   const [authUser, setAuthUser] = useState(null)
-
+  const [jobCardModal, setJobCardModal] = useState(false)
 
   useEffect(() => {
     const appId = data.REACT_APP_APPID 
@@ -82,7 +82,7 @@ function App() {
 
   return (
     <BrowserRouter>
-     <div>
+     <div style={{ overflowX: "hidden" }}>
        <NavBar 
        what={what} 
        setCurrJob={setCurrJob} 
@@ -100,12 +100,18 @@ function App() {
           setCurrJob={setCurrJob} 
           onPageChange={handlePageChange}
           page={page}
+          setJobCardModal={setJobCardModal}
           />}/>
 
          <Route path="/tips" element={<Tips />}/>
          <Route path="/saved-jobs" element={<SavedJobs currentUser={authUser}/>}/>
        </Routes>
-       {currJob ? <CardInfo data={data} job={currJob}/> : null}
+       {currJob ? <CardInfo 
+       data={data} 
+       job={currJob}
+       setJobCardModal={setJobCardModal}
+       show={jobCardModal}
+       /> : null}
      </div>
    </BrowserRouter>
   );

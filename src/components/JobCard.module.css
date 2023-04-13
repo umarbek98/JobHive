@@ -31,12 +31,12 @@ body {
 }
 
 /* Add some padding to the card content */
-.card-content {
+/* .card-content {
   padding: 10px;
-}
+} */
 
 /* Style the card buttons */
-.card-button {
+/* .card-button {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 5px;
@@ -47,12 +47,12 @@ body {
   text-decoration: none;
   margin-right: 10px;
   transition: all 0.3s ease;
-}
+} */
 
-.card-button:hover {
+/* .card-button:hover {
   background-color: #4169e1;
   color: #fff;
-}
+} */
 
 /* Add some margin to the card buttons */
 .card-button:not(:last-child) {

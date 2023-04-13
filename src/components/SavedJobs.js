@@ -48,7 +48,7 @@ function SavedJobs({ currentUser }) {
             </div>
           </div>
         ))}
-        <Modal show={showJob} onHide={handleCloseJob}>
+        <Modal className="modal-lg" show={showJob} onHide={handleCloseJob}>
           <ModalBody>
           <div >
             <h1 className={styles.titleModal}>{currJob.title}</h1>

@@ -3,8 +3,9 @@ import styles from "./CardInfo.module.css";
 import moment from "moment";
 import { savedJobsCollection } from "../firebase";
 import SaveButton from "./SaveButton";
+import { Modal } from "react-bootstrap";
 
-function CardInfo({ job, data }) {
+function CardInfo({ job, data, show, setJobCardModal }) {
   const [saved, setSaved] = useState(false);
 
   const job_contract = job.contract_time;
@@ -15,6 +16,10 @@ function CardInfo({ job, data }) {
     contract_time = "Part Time";
   } else {
     contract_time = null;
+  }
+
+  function handleCardHide(){
+    setJobCardModal(false)
   }
 
   const handleSave = () => {
@@ -33,37 +38,39 @@ function CardInfo({ job, data }) {
   };
 
   return (
-    <div className={styles.cardInfo}>
-      <SaveButton onClick={handleSave} job={job} saved={saved} />
-      <h1 className={styles.title}>{job.title}</h1>
-      <h3 className={styles.title}>{job.company.display_name}</h3>
-      <p className={styles.info}>
-        {job.location.display_name} |{" "}
-        {moment(job.created).utc().format("MM/DD/YYYY")}
-      </p>
-      <p className={styles.info}>
-        Salary: from ${job.salary_min} to ${job.salary_max}
-      </p>
-      <p className={styles.info}>{contract_time}</p>
-      <h1 className={styles.title}>Short Description</h1>
-      <p className={styles.description}>{job.description}</p>
-      <div style={{ textAlign: "center" }}>
-        <a
-          href={job.redirect_url}
-          className="btn btn-primary btn-lg active"
-          role="button"
-          aria-pressed="true"
-        >
-          More Details
-        </a>
-        <br />
+    <Modal  className="modal-xl" show={show} onHide={handleCardHide}>
+      <div className={styles.cardInfo}>
+        <h1 className={styles.title}>{job.title}</h1>
+        <h3 className={styles.title}>{job.company.display_name}</h3>
+        <p className={styles.info}>
+          {job.location.display_name} |{" "}
+          {moment(job.created).utc().format("MM/DD/YYYY")}
+        </p>
+        <p className={styles.info}>
+          Salary: from ${job.salary_min} to ${job.salary_max}
+        </p>
+        <p className={styles.info}>{contract_time}</p>
+        <h1 className={styles.title}>Short Description</h1>
+        <p className={styles.description}>{job.description}</p>
+        <div style={{ textAlign: "center" }}>
+          <a
+            href={job.redirect_url}
+            className="btn btn-primary btn-lg active"
+            role="button"
+            aria-pressed="true"
+            >
+            More Details
+          </a>
+          <SaveButton onClick={handleSave} job={job} saved={saved} />
+          <br />
+        </div>
+        <br></br>
+        <p className={styles.info}>
+          For some useful tips please head over to Tips section of our page, to
+          help get a better idea of what you should do for applying
+        </p>
       </div>
-      <br></br>
-      <p className={styles.info}>
-        For some useful tips please head over to Tips section of our page, to
-        help get a better idea of what you should do for applying
-      </p>
-    </div>
+    </Modal>
   );
 }
 

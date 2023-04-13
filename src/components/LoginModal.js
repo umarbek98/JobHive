@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-import {Modal, Form, Button} from 'react-bootstrap';
+import {Modal, Form, Button, Alert} from 'react-bootstrap';
 import { auth} from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function LoginModal({show, handleCloseLogin, handleRegister}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userError, setUserError] = useState(false)
 
   const signIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
     .then((useCredential) => {
-      console.log(useCredential)
+      if (useCredential){
+        handleCloseLogin()
+        setUserError(false)
+        setEmail('')
+        setPassword('')
+      }
     }).catch((error) => {
       console.log(error)
+      setUserError(true)
+      setEmail('')
+      setPassword('')
     })
+
   }
 
     return(
@@ -23,6 +33,7 @@ function LoginModal({show, handleCloseLogin, handleRegister}) {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {userError ? <Alert variant="danger">Wrong Email or Password</Alert> : null}
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
