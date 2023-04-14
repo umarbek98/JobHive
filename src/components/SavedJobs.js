@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { db } from "../firebase";
 import styles from "./SavedJobs.module.css"
 import { collection, query, where, getDocs } from "firebase/firestore";
 import moment from "moment";
 import { Modal, ModalBody } from "react-bootstrap";
+import AppContext from "./AppContext";
 
 
-function SavedJobs({ currentUser }) {
+function SavedJobs() {
+  const {authUser} = useContext(AppContext)
   const [savedJobs, setSavedJobs] = useState([]);
   const [showJob, setShowJob] = useState(false);
   const [currJob, setCurrJob] = useState([])
@@ -24,8 +26,8 @@ function SavedJobs({ currentUser }) {
   useEffect(() => {
     const fetchData = async () => {
       const jobsRef = collection(db, "saved-jobs");
-      const q = query(jobsRef, where("userId", "==", currentUser.uid));
-      console.log(currentUser)
+      const q = query(jobsRef, where("userId", "==", authUser.uid));
+      console.log(authUser)
       const querySnapshot = await getDocs(q);
       const savedJobsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -34,7 +36,7 @@ function SavedJobs({ currentUser }) {
       setSavedJobs(savedJobsList);
     };
     fetchData();
-  }, [currentUser]);
+  }, [authUser]);
 
   return (
     <div style={{display: 'flex', flexWrap: "wrap"}}>

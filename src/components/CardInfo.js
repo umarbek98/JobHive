@@ -1,12 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./CardInfo.module.css";
 import moment from "moment";
-import { savedJobsCollection } from "../firebase";
+import { savedJobsCollection, where, query, getDocs  } from "../firebase";
 import SaveButton from "./SaveButton";
 import { Modal } from "react-bootstrap";
+import AppContext from "./AppContext";
 
-function CardInfo({ job, data, show, setJobCardModal }) {
+function CardInfo() {
+  const {currJob, jobCardModal, setJobCardModal} = useContext(AppContext)
   const [saved, setSaved] = useState(false);
+  const job = currJob
+
+  useEffect(() => {
+    // Check if job is already saved
+    const q = query(savedJobsCollection, where("job_id", "==", job.id))
+    getDocs(q)
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          // Job is already saved
+          setSaved(true);
+        }else {
+          setSaved(false)
+        }
+
+      })
+      .catch((error) => {
+        console.log('Error getting saved jobs:', error)
+      })
+  }, [job.id]);
 
   const job_contract = job.contract_time;
   let contract_time;
@@ -38,7 +59,7 @@ function CardInfo({ job, data, show, setJobCardModal }) {
   };
 
   return (
-    <Modal  className="modal-xl" show={show} onHide={handleCardHide}>
+    <Modal  className="modal-xl" show={jobCardModal} onHide={handleCardHide}>
       <div className={styles.cardInfo}>
         <h1 className={styles.title}>{job.title}</h1>
         <h3 className={styles.title}>{job.company.display_name}</h3>
@@ -61,7 +82,7 @@ function CardInfo({ job, data, show, setJobCardModal }) {
             >
             More Details
           </a>
-          <SaveButton onClick={handleSave} job={job} saved={saved} />
+          <SaveButton onClick={handleSave} job={job} isSaved={saved} setSaved={setSaved} />
           <br />
         </div>
         <br></br>

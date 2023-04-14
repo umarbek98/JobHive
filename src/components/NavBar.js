@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import styles from './NavBar.module.css'
 import { Link } from 'react-router-dom';
@@ -6,8 +6,10 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import AppContext from './AppContext';
 
-function NavBar({setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
+function NavBar() {
+  const {setWhat, setWhere, setCurrJob, setAuthUser, authUser} = useContext(AppContext)
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -45,7 +47,7 @@ function NavBar({setWhat, setWhere, setCurrJob, setAuthUser, authUser}) {
 
   return (
     <Navbar bg='dark' expand="lg">
-      <Navbar.Brand className={'ms-4 text-primary'} href="#home">JobHive</Navbar.Brand>
+      <Navbar.Brand className={'ms-4 text-primary'} href="/">JobHive</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

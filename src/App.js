@@ -9,6 +9,7 @@ import SavedJobs from './components/SavedJobs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { onAuthStateChanged} from "firebase/auth";
 import { auth } from "./firebase";
+import AppContext from './components/AppContext';
 
 
 
@@ -82,38 +83,37 @@ function App() {
 
   return (
     <BrowserRouter>
-     <div style={{ overflowX: "hidden" }}>
-       <NavBar 
-       what={what} 
-       setCurrJob={setCurrJob} 
-       setWhat={setWhat} 
-       where={where} 
-       setWhere={setWhere}
-       authUser={authUser}
-       setAuthUser={setAuthUser}
-       />
-       <Routes>
-
-         <Route exact path="/" element={<JobListings
-          jobs={jobs}
-          currJob={currJob} 
-          setCurrJob={setCurrJob} 
-          onPageChange={handlePageChange}
-          page={page}
-          setJobCardModal={setJobCardModal}
-          />}/>
-
-         <Route path="/tips" element={<Tips />}/>
-         <Route path="/saved-jobs" element={<SavedJobs currentUser={authUser}/>}/>
-       </Routes>
-       {currJob ? <CardInfo 
-       data={data} 
-       job={currJob}
-       setJobCardModal={setJobCardModal}
-       show={jobCardModal}
-       /> : null}
-     </div>
-   </BrowserRouter>
+      <AppContext.Provider value={{ 
+        jobs, 
+        setJobs, 
+        loading, 
+        setLoading, 
+        error, 
+        setError, 
+        what, 
+        setWhat, 
+        where, 
+        setWhere, 
+        currJob, 
+        setCurrJob, 
+        page, 
+        setPage, 
+        authUser, 
+        setAuthUser, 
+        jobCardModal, 
+        setJobCardModal 
+      }}>
+        <div style={{ overflowX: "hidden" }}>
+          <NavBar />
+          <Routes>
+            <Route exact path="/" element={<JobListings onPageChange={handlePageChange} />} />
+            <Route path="/tips" element={<Tips />} />
+            <Route path="/saved-jobs" element={<SavedJobs />} />
+          </Routes>
+          {currJob ? <CardInfo /> : null}
+        </div>
+      </AppContext.Provider>
+    </BrowserRouter>
   );
 }
 

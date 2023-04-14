@@ -6,6 +6,7 @@ function JobCard({ job, setCurrJob, setJobCardModal}){
     function handleclick(e){
         setCurrJob(job)
         setJobCardModal(true)
+        // console.log(job)
     }
     return(
         <div className="col-sm-2" id={styles.card} onClick={handleclick}>

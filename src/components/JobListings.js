@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./JobCard.module.css"
 import JobCard from "./JobCard";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AppContext from "./AppContext";
 
-function JobListings({jobs, setCurrJob, currJob, onPageChange, page, setJobCardModal}){
+function JobListings({ onPageChange }) {
+    const {jobs, setCurrJob, currJob, page, setJobCardModal} = useContext(AppContext)
     return(
         <>
             <div className="row" style={{marginTop: '60px', marginLeft: '20px'}}>
