@@ -10,6 +10,7 @@
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
     "fs": "^0.0.1-security",
+    "indeed-api": "^1.0.0",
     "moment": "^2.29.4",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",

@@ -46,20 +46,20 @@ function NavBar() {
   }
 
   return (
-    <Navbar bg='dark' expand="lg">
-      <Navbar.Brand className={'ms-4 text-primary'} href="/">JobHive</Navbar.Brand>
+    <Navbar className={styles.navbarContainer} expand="lg">
+      <Navbar.Brand className={styles.brandText} href="/">JobHive</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to="/" className="ms-2 text-primary" href="#home">Home</Link>
-          <Link onClick={handleClick} to="/tips" className="ms-4 text-primary" href="#link">Tips</Link>
-          {authUser ? <Link onClick={handleClick} className="ms-4 text-primary" to="/saved-jobs">Saved Jobs</Link> : null}
+          <Link to="/" className="ms-2 " href="#home">Home</Link>
+          <Link onClick={handleClick} to="/tips" className="ms-4" href="#link" >Tips</Link>
+          {authUser ? <Link onClick={handleClick} className="ms-4" to="/saved-jobs">Saved Jobs</Link> : null}
         </Nav>
         <Form inline onSubmit={handleSearch}>
             <div className='d-flex'>
-                <FormControl type="text" placeholder="What" className="mr-sm-2 ms-4 me-4" name="what" />
+                <FormControl type="text" placeholder="What" className="mr-sm-2 ms-4 me-4" name="what"/>
                 <FormControl type="text" placeholder="Where" className="mr-sm-2 me-2" name="where" />
-                <Button type="submit">Search</Button>
+                <Button type="submit" className={styles.loginButton}>Search</Button>
             </div>
         </Form>
         {authUser ? <Button className={styles.loginButton} variant="primary" onClick={userSignOut}>Logout</Button>

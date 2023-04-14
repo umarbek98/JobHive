@@ -24,6 +24,10 @@ function App() {
   const [authUser, setAuthUser] = useState(null)
   const [jobCardModal, setJobCardModal] = useState(false)
 
+
+
+
+    //////////////////////////
   useEffect(() => {
     const appId = data.REACT_APP_APPID 
     const appKey = data.REACT_APP_APPKEY;

@@ -20,9 +20,9 @@ function JobListings({ onPageChange }) {
 
             </div>
             <div className="pagination-container fixed-bottom d-flex justify-content-center align-items-center">
-                <button className="btn btn-primary me-2" onClick={() => onPageChange('prev')} disabled={page === 1}>Previous</button>
+                <button className="btn btn-primary me-2" onClick={() => onPageChange('prev')} disabled={page === 1} style={{fontSize: '20px'}}>Previous</button>
                 <div className={styles.pageNumber}>{page}</div>
-                <button className="btn btn-primary ms-2" onClick={() => onPageChange('next')}>Next</button>
+                <button className="btn btn-primary ms-2" onClick={() => onPageChange('next')} style={{fontSize: '20px'}}>Next</button>
             </div>
         </>
     );
