@@ -55,7 +55,7 @@ function NavBar() {
           <Link onClick={handleClick} to="/tips" className="ms-4" href="#link" >Tips</Link>
           {authUser ? <Link onClick={handleClick} className="ms-4" to="/saved-jobs">Saved Jobs</Link> : null}
         </Nav>
-        <Form inline onSubmit={handleSearch}>
+        <Form onSubmit={handleSearch}>
             <div className='d-flex'>
                 <FormControl type="text" placeholder="What" className="mr-sm-2 ms-4 me-4" name="what"/>
                 <FormControl type="text" placeholder="Where" className="mr-sm-2 me-2" name="where" />

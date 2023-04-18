@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { db } from "../firebase";
 import styles from "./SavedJobs.module.css"
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {savedJobsCollection} from '../firebase'
 import moment from "moment";
 import { Modal, ModalBody } from "react-bootstrap";
 import AppContext from "./AppContext";
@@ -16,18 +17,27 @@ function SavedJobs() {
   function handleShowJob(job){
     setCurrJob(job)
     setShowJob(true)
-    console.log(currJob)
   }
   
   function handleCloseJob(){
     setShowJob(false)
   }
 
+  function handleRemoveJob() {
+    deleteDoc(doc(savedJobsCollection, currJob.id))
+      .then(() => {
+        console.log("Job removed from saved jobs");
+        setSavedJobs(savedJobs.filter(job => job.id !== currJob.id));
+      })
+      .catch((error) => {
+        console.error("Error removing job from saved jobs: ", error);
+      });
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const jobsRef = collection(db, "saved-jobs");
       const q = query(jobsRef, where("userId", "==", authUser.uid));
-      console.log(authUser)
       const querySnapshot = await getDocs(q);
       const savedJobsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -41,7 +51,7 @@ function SavedJobs() {
   return (
     <div style={{display: 'flex', flexWrap: "wrap"}}>
         {savedJobs.map((job) => (
-          <div >
+          <div key={job.id}>
             <div onClick={() => handleShowJob(job)} id={styles.card} key={job.id}>
                   <h1 className={styles.title}>{job.title}</h1>
                   <h3 className={styles.title}>{job.company}</h3>
@@ -73,6 +83,7 @@ function SavedJobs() {
               >
                 More Details
               </a>
+              <button className="btn ms-2 btn-primary btn-lg active" onClick={handleRemoveJob}>Remove</button>
               <br />
             </div>
           </div>

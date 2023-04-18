@@ -12,6 +12,10 @@
     transition: all 0.3s ease;
 }
 
+#card:hover{
+    background-color: #4169e1;
+    color: #fff;
+  }
 
 .title {
     white-space: nowrap;
