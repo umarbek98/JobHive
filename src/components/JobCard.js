@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./JobCard.module.css"
 import moment from "moment";
 
-function JobCard({ job, setCurrJob, setJobCardModal}){
+function JobCard({ job, setCurrJob, setJobCardModal, data}){
     const [companyImage, setCompanyImage] = useState(null);
     function handleclick(e){
         setCurrJob(job)
@@ -13,7 +13,7 @@ function JobCard({ job, setCurrJob, setJobCardModal}){
 
   useEffect(() => {
     // Search for company image using Pexels API
-    const apiKey = "Dk5GORnTjdPeDVWTmbH0pmOjcQHHZTtpTrE7EQBCZKaK9FALsloF6zSi";
+    const apiKey = data.REACT_APP_PEXEL
     const query = job.title;
     const url = `https://api.pexels.com/v1/search?query=${query}&per_page=1`;
     fetch(url, {

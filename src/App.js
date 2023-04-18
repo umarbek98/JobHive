@@ -110,7 +110,7 @@ function App() {
         <div style={{ overflowX: "hidden" }}>
           <NavBar />
           <Routes>
-            <Route exact path="/" element={<JobListings onPageChange={handlePageChange} />} />
+            <Route exact path="/" element={<JobListings onPageChange={handlePageChange} data={data}/>} />
             <Route path="/tips" element={<Tips />} />
             <Route path="/saved-jobs" element={<SavedJobs />} />
           </Routes>

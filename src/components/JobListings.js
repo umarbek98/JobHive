@@ -4,7 +4,7 @@ import JobCard from "./JobCard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppContext from "./AppContext";
 
-function JobListings({ onPageChange }) {
+function JobListings({ onPageChange, data }) {
     const {jobs, setCurrJob, currJob, page, setJobCardModal} = useContext(AppContext)
     return(
         <>
@@ -16,6 +16,7 @@ function JobListings({ onPageChange }) {
                 job={job} 
                 setCurrJob={setCurrJob}
                 setJobCardModal={setJobCardModal}
+                data={data}
                 />)}
 
             </div>
