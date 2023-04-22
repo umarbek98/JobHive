@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+JobHive
+JobHive is a job search platform that allows users to search for job listings based on their preferred job title and location. The platform uses the Adzuna API to fetch job listings and displays them in a user-friendly interface. Users can also save job listings to their account for future reference.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Screenshot 2023-04-22 175800](https://user-images.githubusercontent.com/119772573/233808287-7b5b6736-2062-4a66-a9c6-99ae708d5b48.png)
 
-## Available Scripts
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Technologies Used
+React
+Firebase Authentication
+Adzuna API
+Bootstrap
+Moment.js
+Features
+Search for job listings based on job title and location
+View job details and apply for jobs through external links
+Save job listings to user account for future reference
+Authentication and authorization using Firebase Authentication
+Pagination for job listings
+Installation
+Clone the repository
+Install dependencies using 
+npm install
+Create a 
+.env
+ file in the root directory and add the following variables:
+REACT_APP_APPID: Your Adzuna API App ID
+REACT_APP_APPKEY: Your Adzuna API App Key
+REACT_APP_FIREBASE_API_KEY: Your Firebase API Key
+REACT_APP_FIREBASE_AUTH_DOMAIN: Your Firebase Auth Domain
+REACT_APP_FIREBASE_PROJECT_ID: Your Firebase Project ID
+Start the development server using 
+npm start
+Usage
+Enter a job title and location in the search bar and click "Search"
+Browse through the job listings and click on a job to view more details
+Click "More Details" to apply for the job through an external link
+Click "Save" to save the job listing to your account
+Click "Login" to sign in to your account or "Register" to create a new account
+Click "Saved Jobs" to view your saved job listings
+Contributors
+John Doe
+Jane Smith
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
