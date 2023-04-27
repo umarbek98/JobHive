@@ -9,12 +9,12 @@ import { signOut } from "firebase/auth";
 import AppContext from './AppContext';
 
 function NavBar() {
-  const {setWhat, setWhere, setCurrJob, setAuthUser, authUser} = useContext(AppContext)
+  const { setWhat, setWhere, setCurrJob, setAuthUser, authUser } = useContext(AppContext)
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
 
-  function userSignOut(){
+  function userSignOut() {
     signOut(auth)
   }
 
@@ -24,7 +24,7 @@ function NavBar() {
     setWhere(event.target.where.value)
   }
 
-  function handleClick(e){
+  function handleClick(e) {
     setCurrJob(null)
   }
 
@@ -56,17 +56,17 @@ function NavBar() {
           {authUser ? <Link onClick={handleClick} className="ms-4" to="/saved-jobs">Saved Jobs</Link> : null}
         </Nav>
         <Form onSubmit={handleSearch}>
-            <div className='d-flex'>
-                <FormControl type="text" placeholder="What" className="mr-sm-2 ms-4 me-4" name="what"/>
-                <FormControl type="text" placeholder="Where" className="mr-sm-2 me-2" name="where" />
-                <Button type="submit" className={styles.loginButton}>Search</Button>
-            </div>
+          <div className='d-flex'>
+            <FormControl type="text" placeholder="What" className="mr-sm-2 ms-4 me-4" name="what" />
+            <FormControl type="text" placeholder="Where" className="mr-sm-2 me-2" name="where" />
+            <Button type="submit" className={styles.loginButton}>Search</Button>
+          </div>
         </Form>
         {authUser ? <Button className={styles.loginButton} variant="primary" onClick={userSignOut}>Logout</Button>
-         : <Button className={styles.loginButton} variant="primary" onClick={handleLogin}>Login</Button>}
+          : <Button className={styles.loginButton} variant="primary" onClick={handleLogin}>Login</Button>}
       </Navbar.Collapse>
-      <LoginModal show={showLogin} handleCloseLogin={handleCloseLogin} handleRegister={handleRegister} authUser={authUser}/>
-      <RegisterModal show={showRegister} handleCloseRegister={handleCloseRegister}/>
+      <LoginModal show={showLogin} handleCloseLogin={handleCloseLogin} handleRegister={handleRegister} authUser={authUser} />
+      <RegisterModal show={showRegister} handleCloseRegister={handleCloseRegister} />
     </Navbar>
   );
 }

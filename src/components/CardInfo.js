@@ -1,13 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./CardInfo.module.css";
 import moment from "moment";
-import { savedJobsCollection, where, query, getDocs  } from "../firebase";
+import { savedJobsCollection, where, query, getDocs } from "../firebase";
 import SaveButton from "./SaveButton";
 import { Modal } from "react-bootstrap";
 import AppContext from "./AppContext";
 
+function formatCurrency(str) {
+  const formattedCurrency = str.toLocaleString('en-US', {
+    style: 'currency', currency: 'USD', minimumFractionDigits: 2
+  })
+  return formattedCurrency
+}
+
+function salary(min, max) {
+  if (min === max) {
+    return `Estimated salary ${formatCurrency(min)}`
+  } else {
+    return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(max)}`
+  }
+}
+
 function CardInfo() {
-  const {currJob, jobCardModal, setJobCardModal} = useContext(AppContext)
+  const { currJob, jobCardModal, setJobCardModal } = useContext(AppContext)
   const [saved, setSaved] = useState(false);
   const job = currJob
 
@@ -19,7 +34,7 @@ function CardInfo() {
         if (!querySnapshot.empty) {
           // Job is already saved
           setSaved(true);
-        }else {
+        } else {
           setSaved(false)
         }
 
@@ -39,7 +54,7 @@ function CardInfo() {
     contract_time = null;
   }
 
-  function handleCardHide(){
+  function handleCardHide() {
     setJobCardModal(false)
   }
 
@@ -58,28 +73,32 @@ function CardInfo() {
       });
   };
 
+  const { title, salary_max, salary_min, company, location, created, description, redirect_url } = job
+
   return (
-    <Modal  className="modal-xl" show={jobCardModal} onHide={handleCardHide}>
+    <Modal className="modal-xl" show={jobCardModal} onHide={handleCardHide}>
       <div className={styles.cardInfo}>
-        <h1 className={styles.title}>{job.title}</h1>
-        <h3 className={styles.title}>{job.company.display_name}</h3>
+        <h1 className={styles.title}>{title}</h1>
+        <h3 className={styles.title}>{company.display_name}</h3>
         <p className={styles.info}>
-          {job.location.display_name} |{" "}
-          {moment(job.created).utc().format("MM/DD/YYYY")}
+          {location.display_name} |{" "}
+          {moment(created).utc().format("MM/DD/YYYY")}
         </p>
         <p className={styles.info}>
-          Salary: from ${job.salary_min} to ${job.salary_max}
+          {
+            salary_min ? salary(salary_min, salary_max) : `Salary undisclosed`
+          }
         </p>
         <p className={styles.info}>{contract_time}</p>
         <h1 className={styles.title}>Short Description</h1>
-        <p className={styles.description}>{job.description}</p>
+        <p className={styles.description}>{description}</p>
         <div style={{ textAlign: "center" }}>
           <a
-            href={job.redirect_url}
+            href={redirect_url}
             className="btn btn-primary btn-lg active"
             role="button"
             aria-pressed="true"
-            >
+          >
             More Details
           </a>
           <SaveButton onClick={handleSave} job={job} isSaved={saved} setSaved={setSaved} />

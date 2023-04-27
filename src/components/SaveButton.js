@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { auth, db, savedJobsCollection, addDoc} from "../firebase";
+import { auth, db, savedJobsCollection, addDoc } from "../firebase";
 
-function SaveButton({ job, isSaved, setSaved}) {
+function SaveButton({ job, isSaved, setSaved }) {
   // const [isSaved, setIsSaved] = useState(false);
 
 
   const handleClick = () => {
-    if(!isSaved) {
+    if (!isSaved) {
       handleSaveJob()
     }
   }
@@ -40,7 +40,7 @@ function SaveButton({ job, isSaved, setSaved}) {
 
 
   return (
-    <button className="btn btn-success btn-lg active" style={{marginLeft: '10px'}} onClick={handleClick} disabled={isSaved}>
+    <button className="btn btn-success btn-lg active" style={{ marginLeft: '10px' }} onClick={handleClick} disabled={isSaved}>
       {isSaved ? "Saved!" : "Save Job"}
     </button>
   );

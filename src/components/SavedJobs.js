@@ -2,24 +2,39 @@ import { useState, useEffect, useContext } from "react";
 import { db } from "../firebase";
 import styles from "./SavedJobs.module.css"
 import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
-import {savedJobsCollection} from '../firebase'
+import { savedJobsCollection } from '../firebase'
 import moment from "moment";
 import { Modal, ModalBody } from "react-bootstrap";
 import AppContext from "./AppContext";
 
 
 function SavedJobs() {
-  const {authUser} = useContext(AppContext)
+  const { authUser } = useContext(AppContext)
   const [savedJobs, setSavedJobs] = useState([]);
   const [showJob, setShowJob] = useState(false);
   const [currJob, setCurrJob] = useState([])
 
-  function handleShowJob(job){
+  function formatCurrency(str) {
+    const formattedCurrency = str.toLocaleString('en-US', {
+      style: 'currency', currency: 'USD', minimumFractionDigits: 2
+    })
+    return formattedCurrency
+  }
+
+  function salary(min, max) {
+    if (min === max) {
+      return `Estimated salary ${formatCurrency(min)}`
+    } else {
+      return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(max)}`
+    }
+  }
+
+  function handleShowJob(job) {
     setCurrJob(job)
     setShowJob(true)
   }
-  
-  function handleCloseJob(){
+
+  function handleCloseJob() {
     setShowJob(false)
   }
 
@@ -49,19 +64,19 @@ function SavedJobs() {
   }, [authUser]);
 
   return (
-    <div style={{display: 'flex', flexWrap: "wrap"}}>
-        {savedJobs.map((job) => (
-          <div key={job.id}>
-            <div onClick={() => handleShowJob(job)} id={styles.card} key={job.id}>
-                  <h1 className={styles.title}>{job.title}</h1>
-                  <h3 className={styles.title}>{job.company}</h3>
-                  <p>{job.location} | {moment(job.created).utc().format('MM/DD/YYYY')}</p>
-                  <p>Salary: Estimated ${job.sal_min} to ${job.sal_max}</p>
-            </div>
+    <div style={{ display: 'flex', flexWrap: "wrap" }}>
+      {savedJobs.map((job) => (
+        <div key={job.id}>
+          <div onClick={() => handleShowJob(job)} id={styles.card} key={job.id}>
+            <h1 className={styles.title}>{job.title}</h1>
+            <h3 className={styles.title}>{job.company}</h3>
+            <p>{job.location} | {moment(job.created).utc().format('MM/DD/YYYY')}</p>
+            {job.sal_min ? salary(job.sal_min, job.sal_max) : `Salary undisclosed`}
           </div>
-        ))}
-        <Modal className="modal-lg" show={showJob} onHide={handleCloseJob}>
-          <ModalBody>
+        </div>
+      ))}
+      <Modal className="modal-lg" show={showJob} onHide={handleCloseJob}>
+        <ModalBody>
           <div >
             <h1 className={styles.titleModal}>{currJob.title}</h1>
             <h3 className={styles.titleModal}>{currJob.company}</h3>
@@ -70,7 +85,9 @@ function SavedJobs() {
               {moment(currJob.created).utc().format("MM/DD/YYYY")}
             </p>
             <p className={styles.info}>
-              Salary: from ${currJob.sal_min} to ${currJob.sal_max}
+              {
+                currJob.sal_min ? salary(currJob.sal_min, currJob.sal_max) : `Salary undisclosed`
+              }
             </p>
             <h1 className={styles.titleModal}>Short Description</h1>
             <p className={styles.description}>{currJob.description}</p>
@@ -87,8 +104,8 @@ function SavedJobs() {
               <br />
             </div>
           </div>
-          </ModalBody>
-        </Modal>
+        </ModalBody>
+      </Modal>
     </div>
   );
 }

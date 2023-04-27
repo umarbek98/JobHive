@@ -12,10 +12,10 @@
     transition: all 0.3s ease;
 }
 
-#card:hover{
+#card:hover {
     background-color: #4169e1;
     color: #fff;
-  }
+}
 
 .title {
     white-space: nowrap;
@@ -36,7 +36,13 @@
     text-align: center;
 }
 
-.info{
+.info {
     margin-top: 20px;
     text-align: center;
+}
+
+.removeButton {
+    margin: 10px;
+    float: right;
+    background-color: #4169e100;
 }

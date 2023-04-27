@@ -17,7 +17,7 @@ body {
   transition: all 0.3s ease;
 }
 
-#card:hover{
+#card:hover {
   background-color: #4169e1;
   color: #fff;
 }
@@ -31,31 +31,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Add some padding to the card content */
-/* .card-content {
-  padding: 10px;
-} */
-
-/* Style the card buttons */
-/* .card-button {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  color: #4169e1;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  margin-right: 10px;
-  transition: all 0.3s ease;
-} */
-
-/* .card-button:hover {
-  background-color: #4169e1;
-  color: #fff;
-} */
-
-/* Add some margin to the card buttons */
 .card-button:not(:last-child) {
   margin-right: 10px;
 }
@@ -68,7 +43,7 @@ body {
   color: #fff;
 }
 
-.companyImage{
+.companyImage {
   position: fixed;
   width: 70px;
   height: 70px;
@@ -76,5 +51,5 @@ body {
   top: 10px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  
+
 }

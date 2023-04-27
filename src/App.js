@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import JobListings from './components/JobListings';
 import NavBar from './components/NavBar';
 import CardInfo from './components/CardInfo';
-import data from "./env.js"
 import Tips from './components/Tips';
 import SavedJobs from './components/SavedJobs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { onAuthStateChanged} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import AppContext from './components/AppContext';
 
+
+const { REACT_APP_APPID: appId, REACT_APP_APPKEY: appKey } = process.env
 
 
 function App() {
@@ -27,10 +28,8 @@ function App() {
 
 
 
-    //////////////////////////
+  //////////////////////////
   useEffect(() => {
-    const appId = data.REACT_APP_APPID 
-    const appKey = data.REACT_APP_APPKEY;
     const endpoint = `https://api.adzuna.com/v1/api/jobs/us/search/${page}?app_id=${appId}&app_key=${appKey}&what=${what}&where=${where}`;
 
     setLoading(true);
@@ -55,20 +54,20 @@ function App() {
 
   useEffect(() => {
     const linsten = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setAuthUser(user)
-        } else {
-            setAuthUser(null)
-        }
-    } )
-    
+      if (user) {
+        setAuthUser(user)
+      } else {
+        setAuthUser(null)
+      }
+    })
+
     return () => {
-        linsten();
+      linsten();
 
     }
-},[])
+  }, [])
 
-  function handlePageChange(direction){
+  function handlePageChange(direction) {
     if (direction === 'next') {
       setPage(prevV => prevV + 1)
     } else if (direction === 'prev') {
@@ -87,30 +86,30 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContext.Provider value={{ 
-        jobs, 
-        setJobs, 
-        loading, 
-        setLoading, 
-        error, 
-        setError, 
-        what, 
-        setWhat, 
-        where, 
-        setWhere, 
-        currJob, 
-        setCurrJob, 
-        page, 
-        setPage, 
-        authUser, 
-        setAuthUser, 
-        jobCardModal, 
-        setJobCardModal 
+      <AppContext.Provider value={{
+        jobs,
+        setJobs,
+        loading,
+        setLoading,
+        error,
+        setError,
+        what,
+        setWhat,
+        where,
+        setWhere,
+        currJob,
+        setCurrJob,
+        page,
+        setPage,
+        authUser,
+        setAuthUser,
+        jobCardModal,
+        setJobCardModal
       }}>
         <div style={{ overflowX: "hidden" }}>
           <NavBar />
           <Routes>
-            <Route exact path="/" element={<JobListings onPageChange={handlePageChange} data={data}/>} />
+            <Route exact path="/" element={<JobListings onPageChange={handlePageChange} />} />
             <Route path="/tips" element={<Tips />} />
             <Route path="/saved-jobs" element={<SavedJobs />} />
           </Routes>
