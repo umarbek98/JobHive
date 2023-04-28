@@ -1,48 +1,58 @@
 import { useState, useEffect, useContext } from "react";
 import { db } from "../firebase";
-import styles from "./SavedJobs.module.css"
-import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { savedJobsCollection } from '../firebase'
+import styles from "./SavedJobs.module.css";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { savedJobsCollection } from "../firebase";
 import moment from "moment";
 import { Modal, ModalBody } from "react-bootstrap";
 import AppContext from "./AppContext";
 
-
 function SavedJobs() {
-  const { authUser } = useContext(AppContext)
+  const { authUser } = useContext(AppContext);
   const [savedJobs, setSavedJobs] = useState([]);
   const [showJob, setShowJob] = useState(false);
-  const [currJob, setCurrJob] = useState([])
+  const [currJob, setCurrJob] = useState([]);
 
   function formatCurrency(str) {
-    const formattedCurrency = str.toLocaleString('en-US', {
-      style: 'currency', currency: 'USD', minimumFractionDigits: 2
-    })
-    return formattedCurrency
+    const formattedCurrency = str.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    });
+    return formattedCurrency;
   }
 
   function salary(min, max) {
     if (min === max) {
-      return `Estimated salary ${formatCurrency(min)}`
+      return `Estimated salary ${formatCurrency(min)}`;
     } else {
-      return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(max)}`
+      return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(
+        max
+      )}`;
     }
   }
 
   function handleShowJob(job) {
-    setCurrJob(job)
-    setShowJob(true)
+    setCurrJob(job);
+    setShowJob(true);
   }
 
   function handleCloseJob() {
-    setShowJob(false)
+    setShowJob(false);
   }
 
   function handleRemoveJob() {
     deleteDoc(doc(savedJobsCollection, currJob.id))
       .then(() => {
         console.log("Job removed from saved jobs");
-        setSavedJobs(savedJobs.filter(job => job.id !== currJob.id));
+        setSavedJobs(savedJobs.filter((job) => job.id !== currJob.id));
       })
       .catch((error) => {
         console.error("Error removing job from saved jobs: ", error);
@@ -64,20 +74,24 @@ function SavedJobs() {
   }, [authUser]);
 
   return (
-    <div style={{ display: 'flex', flexWrap: "wrap" }}>
+    <div style={{ display: "flex", flexWrap: "wrap" }}>
       {savedJobs.map((job) => (
         <div key={job.id}>
           <div onClick={() => handleShowJob(job)} id={styles.card} key={job.id}>
             <h1 className={styles.title}>{job.title}</h1>
             <h3 className={styles.title}>{job.company}</h3>
-            <p>{job.location} | {moment(job.created).utc().format('MM/DD/YYYY')}</p>
-            {job.sal_min ? salary(job.sal_min, job.sal_max) : `Salary undisclosed`}
+            <p>
+              {job.location} | {moment(job.created).utc().format("MM/DD/YYYY")}
+            </p>
+            {job.sal_min
+              ? salary(job.sal_min, job.sal_max)
+              : `Salary undisclosed`}
           </div>
         </div>
       ))}
       <Modal className="modal-lg" show={showJob} onHide={handleCloseJob}>
         <ModalBody>
-          <div >
+          <div>
             <h1 className={styles.titleModal}>{currJob.title}</h1>
             <h3 className={styles.titleModal}>{currJob.company}</h3>
             <p className={styles.info}>
@@ -85,9 +99,9 @@ function SavedJobs() {
               {moment(currJob.created).utc().format("MM/DD/YYYY")}
             </p>
             <p className={styles.info}>
-              {
-                currJob.sal_min ? salary(currJob.sal_min, currJob.sal_max) : `Salary undisclosed`
-              }
+              {currJob.sal_min
+                ? salary(currJob.sal_min, currJob.sal_max)
+                : `Salary undisclosed`}
             </p>
             <h1 className={styles.titleModal}>Short Description</h1>
             <p className={styles.description}>{currJob.description}</p>
@@ -100,7 +114,12 @@ function SavedJobs() {
               >
                 More Details
               </a>
-              <button className="btn ms-2 btn-primary btn-lg active" onClick={handleRemoveJob}>Remove</button>
+              <button
+                className="btn ms-2 btn-primary btn-lg active"
+                onClick={handleRemoveJob}
+              >
+                Remove
+              </button>
               <br />
             </div>
           </div>

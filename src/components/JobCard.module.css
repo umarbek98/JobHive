@@ -53,3 +53,22 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.25);
 
 }
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+      
+.paginationContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media (max-width: 1726px) {
+  .paginationContainer {
+    position: static;
+    margin-top: 20px;
+  }
+}

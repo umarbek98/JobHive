@@ -7,41 +7,44 @@ import { Modal } from "react-bootstrap";
 import AppContext from "./AppContext";
 
 function formatCurrency(str) {
-  const formattedCurrency = str.toLocaleString('en-US', {
-    style: 'currency', currency: 'USD', minimumFractionDigits: 2
-  })
-  return formattedCurrency
+  const formattedCurrency = str.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+  return formattedCurrency;
 }
 
 function salary(min, max) {
   if (min === max) {
-    return `Estimated salary ${formatCurrency(min)}`
+    return `Estimated salary ${formatCurrency(min)}`;
   } else {
-    return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(max)}`
+    return `Estimated salary from ${formatCurrency(min)} to ${formatCurrency(
+      max
+    )}`;
   }
 }
 
 function CardInfo() {
-  const { currJob, jobCardModal, setJobCardModal } = useContext(AppContext)
+  const { currJob, jobCardModal, setJobCardModal } = useContext(AppContext);
   const [saved, setSaved] = useState(false);
-  const job = currJob
+  const job = currJob;
 
   useEffect(() => {
     // Check if job is already saved
-    const q = query(savedJobsCollection, where("job_id", "==", job.id))
+    const q = query(savedJobsCollection, where("job_id", "==", job.id));
     getDocs(q)
       .then((querySnapshot) => {
         if (!querySnapshot.empty) {
           // Job is already saved
           setSaved(true);
         } else {
-          setSaved(false)
+          setSaved(false);
         }
-
       })
       .catch((error) => {
-        console.log('Error getting saved jobs:', error)
-      })
+        console.log("Error getting saved jobs:", error);
+      });
   }, [job.id]);
 
   const job_contract = job.contract_time;
@@ -55,7 +58,7 @@ function CardInfo() {
   }
 
   function handleCardHide() {
-    setJobCardModal(false)
+    setJobCardModal(false);
   }
 
   const handleSave = () => {
@@ -73,7 +76,16 @@ function CardInfo() {
       });
   };
 
-  const { title, salary_max, salary_min, company, location, created, description, redirect_url } = job
+  const {
+    title,
+    salary_max,
+    salary_min,
+    company,
+    location,
+    created,
+    description,
+    redirect_url,
+  } = job;
 
   return (
     <Modal className="modal-xl" show={jobCardModal} onHide={handleCardHide}>
@@ -81,13 +93,10 @@ function CardInfo() {
         <h1 className={styles.title}>{title}</h1>
         <h3 className={styles.title}>{company.display_name}</h3>
         <p className={styles.info}>
-          {location.display_name} |{" "}
-          {moment(created).utc().format("MM/DD/YYYY")}
+          {location.display_name} | {moment(created).utc().format("MM/DD/YYYY")}
         </p>
         <p className={styles.info}>
-          {
-            salary_min ? salary(salary_min, salary_max) : `Salary undisclosed`
-          }
+          {salary_min ? salary(salary_min, salary_max) : `Salary undisclosed`}
         </p>
         <p className={styles.info}>{contract_time}</p>
         <h1 className={styles.title}>Short Description</h1>
@@ -101,7 +110,12 @@ function CardInfo() {
           >
             More Details
           </a>
-          <SaveButton onClick={handleSave} job={job} isSaved={saved} setSaved={setSaved} />
+          <SaveButton
+            onClick={handleSave}
+            job={job}
+            isSaved={saved}
+            setSaved={setSaved}
+          />
           <br />
         </div>
         <br></br>
