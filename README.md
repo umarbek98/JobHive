@@ -1,7 +1,7 @@
 JobHive is a job search platform that allows users to search for job listings based on their preferred job title and location. The platform uses the Adzuna API to fetch job listings and displays them in a user-friendly interface. Users can also save job listings to their account for future reference.
 
 ![Screenshot 2023-04-22 175800](https://user-images.githubusercontent.com/119772573/233808287-7b5b6736-2062-4a66-a9c6-99ae708d5b48.png)
-
+## [Demo](https://nimble-kringle-015db0.netlify.app/) 
 
 ## Technologies Used
 - React
