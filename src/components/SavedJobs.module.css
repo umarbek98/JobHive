@@ -1,48 +1,101 @@
 #card {
+  margin: 10px;
+  margin-left: 45px;
+  height: 200px;
+  width: 550px;
+  padding: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+}
+
+#card:hover {
+  background-color: #4169e1;
+  color: #fff;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.titleModal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.info {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.removeButton {
+  margin: 10px;
+  float: right;
+  background-color: #4169e100;
+}
+
+@media only screen and (max-width: 600px) {
+  #card {
     margin: 10px;
-    margin-left: 45px;
     height: 200px;
-    width: 550px;
-    padding: 35px;
+    width: 300px;
+    padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 20px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(15px);
     transition: all 0.3s ease;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .pageNumber {
+    font-size: 18px;
+  }
 }
 
-#card:hover {
-    background-color: #4169e1;
-    color: #fff;
-}
-
-.title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.titleModal {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.info {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.removeButton {
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+  #card {
     margin: 10px;
-    float: right;
-    background-color: #4169e100;
+    height: auto;
+    width: 450px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+  }
 }
+
+/* @media only screen and (max-width: 1024px) {
+  #card {
+    margin: 10px;
+    height: auto;
+    width: 450px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+  }
+} */

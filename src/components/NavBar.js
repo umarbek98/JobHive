@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Navbar, Nav, Form, FormControl, Button, Modal } from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import styles from "./NavBar.module.css";
 import { Link } from "react-router-dom";
 import LoginModal from "./LoginModal";
@@ -45,40 +45,41 @@ function NavBar() {
   }
 
   return (
-    <Navbar className={styles.navbarContainer} expand="lg">
+    <Navbar className={styles.navbarContainer} expand="lg" collapseOnSelect>
       <Navbar.Brand className={styles.brandText} href="/">
-        JobHive
+        <span className="d-lg-none">JobHive</span>
+        <span className="d-none d-lg-block">JobHive</span>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" variant="dark" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to="/" className="ms-2 " href="#home">
+          <Link to="/" className="ms-3 " href="#home">
             Home
           </Link>
-          <Link onClick={handleClick} to="/tips" className="ms-4" href="#link">
+          <Link onClick={handleClick} to="/tips" className="ms-3" href="#link">
             Tips
           </Link>
           {authUser ? (
-            <Link onClick={handleClick} className="ms-4" to="/saved-jobs">
+            <Link onClick={handleClick} className="ms-3" to="/saved-jobs">
               Saved Jobs
             </Link>
           ) : null}
         </Nav>
         <Form onSubmit={handleSearch}>
-          <div className="d-flex">
+          <div className={styles.searchContainer}>
             <FormControl
               type="text"
               placeholder="What"
-              className="mr-sm-2 ms-4 me-4"
+              className={styles.searchInput}
               name="what"
             />
             <FormControl
               type="text"
               placeholder="Where"
-              className="mr-sm-2 me-2"
+              className={styles.searchInput}
               name="where"
             />
-            <Button type="submit" className={styles.loginButton}>
+            <Button type="submit" className={styles.searchButton}>
               Search
             </Button>
           </div>
