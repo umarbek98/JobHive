@@ -27,7 +27,7 @@ function App() {
 
   //////////////////////////
   useEffect(() => {
-    const endpoint = `https://api.adzuna.com/v1/api/jobs/us/search/${page}?app_id=${appId}&app_key=${appKey}&what=${what}&where=${where}`;
+    const endpoint = `https://api.adzuna.com/v1/api/jobs/gb/search/${page}?app_id=${appId}&app_key=${appKey}&what=${what}&where=${where}`;
 
     setLoading(true);
 
